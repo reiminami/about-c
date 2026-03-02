@@ -25,8 +25,6 @@
 1. [ユーティリティ (stdlib.h)](#ユーティリティ-stdlibh)
 1. [文字列操作 (string.h)](#文字列操作-stringh)
 1. [時間 (time.h)](#時間-timeh)
-1. []()
-1. []()
 
 ## Hello World
 
@@ -563,7 +561,6 @@ free(alphabets);
 [⬆︎目次に戻る](#目次)
 
 ## 時間 (time.h)
-
 
 - `time_t`型 - UNIX時間を扱う型
 - `struct tm`型 - 「年・月・日・時・分・秒」に分離した形式で時刻を扱う型
