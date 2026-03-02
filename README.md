@@ -19,12 +19,12 @@
 1. [ポインタ](#ポインタ)
 1. [動的割り当て](#動的割り当て)
 1. [配列とポインタ](#配列とポインタ)
-1. [入出力 (stdio.h)](#入出力-stdioh)
-1. [文字操作 (ctype.h)](#文字操作-ctypeh)
-1. [数学 (math.h)](#数学-mathh)
-1. [ユーティリティ (stdlib.h)](#ユーティリティ-stdlibh)
-1. [文字列操作 (string.h)](#文字列操作-stringh)
-1. [時間 (time.h)](#時間-timeh)
+1. [stdio.h (入出力)](#)
+1. [ctype.h (文字操作)](#)
+1. [math.h (数学)](#mathh-数学)
+1. [stdlib.h (ユーティリティ)](#stdlibh-ユーティリティ)
+1. [string.h (文字列操作)](#stringh-文字列操作)
+1. [time.h (時間)](#timeh-時間)
 
 ## Hello World
 
@@ -444,7 +444,7 @@ free(alphabets);
 
 [⬆︎目次に戻る](#目次)
 
-## 入出力 (stdio.h)
+## stdio.h (入出力)
 
 - printf - 文字列を出力する
 - [fopen](/stdio/fopen.c) - ファイルを作成
@@ -474,7 +474,7 @@ free(alphabets);
 
 [⬆︎目次に戻る](#目次)
 
-## 文字操作 (ctype.h)
+## ctype.h (文字操作)
 
 以下は全て文字(char)に対する関数です。
 
@@ -495,7 +495,7 @@ free(alphabets);
 
 [⬆︎目次に戻る](#目次)
 
-## 数学 (math.h)
+## math.h (数学)
 
 - [ceil](/math/ceil.c) - 最も近い整数への切り上げ
 - [fabs](/math/fabs.c) - 絶対値を返す
@@ -511,7 +511,7 @@ free(alphabets);
 
 [⬆︎目次に戻る](#目次)
 
-## ユーティリティ (stdlib.h)
+## stdlib.h (ユーティリティ)
 
 - 計算
     - [abs](/stdlib/abs.c) - 絶対値を返す
@@ -529,7 +529,7 @@ free(alphabets);
 
 [⬆︎目次に戻る](#目次)
 
-## 文字列操作 (string.h)
+## string.h (文字列操作)
 
 - メモリ関連
     - [memchr](/string/memchr.c) - 指定された値を含むメモリブロックの最初のバイトへのポインタを返す
@@ -560,7 +560,7 @@ free(alphabets);
 
 [⬆︎目次に戻る](#目次)
 
-## 時間 (time.h)
+## time.h (時間)
 
 - `time_t`型 - UNIX時間を扱う型
 - `struct tm`型 - 「年・月・日・時・分・秒」に分離した形式で時刻を扱う型
