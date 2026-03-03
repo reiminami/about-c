@@ -25,6 +25,9 @@
 1. [stdlib.h (ユーティリティ)](#stdlibh-ユーティリティ)
 1. [string.h (文字列操作)](#stringh-文字列操作)
 1. [time.h (時間)](#timeh-時間)
+1. [コマンドライン引数](#コマンドライン引数)
+1. [可変長引数](#可変長引数)
+1. [キャスト](#キャスト)
 
 ## Hello World
 
@@ -574,5 +577,84 @@ free(alphabets);
 - [difftime](/time/difftime.c) - ２つのtime_t値の差を計算する
 - mktime - struct tm型をtime_t型に変換する
 - clock - プログラムが使用したプロセッサクロックティック数を返す
+
+[⬆︎目次に戻る](#目次)
+
+## コマンドライン引数
+
+- `argc`および`argv`を使用して、コマンドライン引数を使用できます。
+
+```c
+#include <stdio.h>
+
+int main(int argc, char *argv[]) {
+    printf("PROGRAM NAME: %s\n", argv[0]);
+
+    if (argc > 1) {
+        for (int i=1; i<argc; i++) {
+            printf("%s\n", argv[i]);
+        }
+    }
+}
+```
+
+- 上記コードを引数なしで実行した場合
+
+```sh
+PROGRAM NAME: ./sample
+```
+
+- 引数に`1 2 3`を指定して実行した場合
+
+```sh
+PROGRAM NAME: ./sample
+1
+2
+3
+```
+
+[⬆︎目次に戻る](#目次)
+
+## 可変長引数
+
+- `stdarg.h`を使用して可変長引数が実現できます。
+
+```c
+#include <stdio.h>
+#include <stdarg.h>
+
+void output(int num, ...) {
+    va_list valist;
+    va_start(valist, num);
+    for (int i=0; i<num; i++) {
+        printf("%s\n", va_arg(valist, char*));
+    }
+}
+
+int main() {
+    output(3, "John", "Paul", "George");
+}
+```
+
+```sh
+John
+Paul
+George
+```
+
+[⬆︎目次に戻る](#目次)
+
+## キャスト
+
+- 型のキャストが可能です。
+
+```c
+#include <stdio.h>
+
+int main() {
+    double avg = (double) 17 / 5;
+    printf("%f\n", avg);            // 3.40000
+}
+```
 
 [⬆︎目次に戻る](#目次)
