@@ -30,11 +30,11 @@
 
 - コードを用意します。`stdio.h`をインクルードすることで出力が可能になります。
 
-```c:4
+```c
 #include <stdio.h>
 
 int main() {
-    printf("Hello, World\n");
+    printf("Hello, World\n");   // Hello, World
     return 0;
 }
 ```
@@ -55,10 +55,10 @@ Hello, World
 
 ```c
 #include <stdio.h>
-#include "sample.h" // ヘッダファイルについてはここでは省略
+#include "sample.h"     // ヘッダファイルについてはここでは省略
 
 int main() {
-    printf("Hello");
+    printf("Hello");    // Hello
 }
 ```
 
@@ -71,8 +71,8 @@ int main() {
 #define SUM(a, b) ((a) + (b))
 
 int main() {
-    printf("Hello, World%c", NEWLINE);
-    printf("%d\n", SUM(10, 20));
+    printf("Hello, World%c", NEWLINE);  // Hello, World\n
+    printf("%d\n", SUM(10, 20));        // 30
 }
 ```
 
@@ -448,7 +448,7 @@ free(alphabets);
 
 - printf - 文字列を出力する
 - [fopen](/stdio/fopen.c) - ファイルを作成
-- fclose - ファイルを閉じる（[fclose.c](/stdio/fopen.c)参照）
+- fclose - ファイルを閉じる（[fopen.c](/stdio/fopen.c)参照）
 - [fgetc](/stdio/fgetc.c) - ファイルから文字を読み取る
 - [fgets](/stdio/fgets.c) - ファイルから1行を読み取る
 - [fprintf](/stdio/fprintf.c) - ファイルに書き込む
@@ -564,8 +564,6 @@ free(alphabets);
 
 - `time_t`型 - UNIX時間を扱う型
 - `struct tm`型 - 「年・月・日・時・分・秒」に分離した形式で時刻を扱う型
-
-<br>
 
 - [time](/time/time.c) - UNIX時間を返す
 - [gmtime](/time/gmtime.c) - time_t型のデータをstruct tm型に変換する
