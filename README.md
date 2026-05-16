@@ -1,174 +1,215 @@
-# about-c
+# About C
 
 *C17
 
-## トピック
-
-- [命名規則](/naming.md)
-
 ## 目次
 
+1. [命名規則](#命名規則)
 1. [Hello World](#hello-world)
-1. [ディレクティブ](#ディレクティブ)
 1. [変数と定数](#変数と定数)
 1. [データ型](#データ型)
 1. [条件分岐](#条件分岐)
 1. [ループ](#ループ)
 1. [配列](#配列)
-1. [多次元配列](#多次元配列)
-1. [静的](#静的)
-1. [構造体](#構造体)
+1. [列挙型](#列挙型)
 1. [関数](#関数)
-1. [関数の引数の参照渡し](#関数の引数の参照渡し)
+1. [構造体](#構造体)
 1. [ポインタ](#ポインタ)
-1. [動的割り当て](#動的割り当て)
-1. [配列とポインタ](#配列とポインタ)
-1. [stdio.h (入出力)](#)
-1. [ctype.h (文字操作)](#)
-1. [math.h (数学)](#mathh-数学)
-1. [stdlib.h (ユーティリティ)](#stdlibh-ユーティリティ)
-1. [string.h (文字列操作)](#stringh-文字列操作)
-1. [time.h (時間)](#timeh-時間)
+1. [標準関数](#標準関数)
+1. [キャスト](#キャスト)
 1. [コマンドライン引数](#コマンドライン引数)
 1. [可変長引数](#可変長引数)
-1. [キャスト](#キャスト)
+1. [ヘッダファイル](#ヘッダファイル)
+
+## 命名規則
+
+```c
+// マクロ
+#define NEW_LINE '\n'
+
+// 列挙子
+enum MyEnum {
+    ONE,
+    TWO,
+    THREE,
+};
+
+// その他
+int x = 10;
+```
+
+[⬆︎目次へ戻る](#目次)
 
 ## Hello World
 
-- コードを用意します。`stdio.h`をインクルードすることで出力が可能になります。
+**最低限のコード**
 
 ```c
 #include <stdio.h>
 
 int main() {
-    printf("Hello, World\n");   // Hello, World
+    printf("Hello, World!\n");
     return 0;
 }
 ```
 
-- ターミナル等でコンパイル＆実行を行います。
+**コンパイル**
 
 ```sh
-$ gcc sample.c -o sample
-$ ./sample
-Hello, World
+gcc src/sample.c -o src/sample
 ```
 
-[⬆︎目次に戻る](#目次)
+**実行**
 
-## ディレクティブ
+```sh
+./src/sample
+```
 
-- `include`で標準ライブラリのインクルードやヘッダファイルのインクルードができます。
+**ディレクティブ** - includeで標準ライブラリやヘッダファイルをインクルード可能
 
 ```c
 #include <stdio.h>
-#include "sample.h"     // ヘッダファイルについてはここでは省略
-
-int main() {
-    printf("Hello");    // Hello
-}
+#include "sample.h"
 ```
 
-- `define`を使用することで、定数やマクロの宣言が可能です。
-
-```c
-#include <stdio.h>
-
-#define NEWLINE '\n'
-#define SUM(a, b) ((a) + (b))
-
-int main() {
-    printf("Hello, World%c", NEWLINE);  // Hello, World\n
-    printf("%d\n", SUM(10, 20));        // 30
-}
-```
-
-> 以降、「インクルード」と「main関数」の記載は省略します。
-
-[⬆︎目次に戻る](#目次)
+[⬆︎目次へ戻る](#目次)
 
 ## 変数と定数
 
-- 整数型(int)の変数に値を代入できます。
+**変数**
 
 ```c
 int age = 20;
-printf("%d歳\n", age);              // 20歳
+printf("%d歳\n", age);
 ```
 
-- 定数も使用できます。
+**定数**
 
 ```c
-const int MAX_HP = 9999;
-int hp = 2300;
-printf("HP: %d/%d", hp, MAX_HP);    // HP: 2300/9999
+const float PI = 3.14;
+printf("%f", PI);
 ```
 
-[⬆︎目次に戻る](#目次)
+**static**
+
+```c
+static int cnt = 0;
+cnt++;
+```
+
+**マクロ**
+
+```c
+#define NEW_LINE '\n'
+#define SUM(a, b) ((a) + (b))
+
+int main() {
+    printf("HELLO WORLD%c", NEW_LINE);
+    printf("%d\n", SUM(10, 20));
+}
+```
+
+[⬆︎目次へ戻る](#目次)
 
 ## データ型
 
-- [データ型一覧](/datatypes.md)を参照ください。
-- boolは標準ライブラリ `stdbool.h` をインクルードすることで使用できます。
+**型一覧**
+
+```c
+int d = 21;
+printf("%d\n", d);
+char c = 'Z';
+printf("%c\n", c);
+float f = 1.23f;
+printf("%f\n", f);
+double lf = 4.56;
+printf("%lf\n", lf);
+short int hd = 1;
+printf("%hd\n", hd);
+unsigned int u = 12;
+printf("%u\n", u);
+long int li = 123;
+printf("%li\n", li);
+long long int lli = 1234;
+printf("%lli\n", lli);
+unsigned long int lu = 12345;
+printf("%lu\n", lu);
+unsigned long long int llu = 123456;
+printf("%llu\n", llu);
+signed char sc = 'Y';
+printf("%c\n", sc);
+unsigned char uc = 'X';
+printf("%c\n", uc);
+long double ld = 7.89;
+printf("%Lf\n", ld);
+```
+
+**bool** - stdbool.hのインクルードで使用可能
 
 ```c
 #include <stdbool.h>
 
-...
-bool is_enable = true;
+int main() {
+    bool is_enable = true;
+}
 ```
 
-- C言語での文字列は「文字の配列」になります。
+**文字列** - C言語では、文字列は文字の配列
 
 ```c
-char *name = "Thom Yorke";
+// 方法1
+char name[] = "John";
+printf("%s\n", name);
+name[0] = 'P';
+name[1] = 'a';
+name[2] = 'u';
+name[3] = 'l';
+printf("%s\n", name);
+
+// 方法2
+char *name = "John";
+printf("%s\n", name);
+name = "Paul";
+printf("%s\n", name);
 ```
 
-- 読み取り専用の文字列の定義も可能です。
-
-```c
-char name[] = "Ringo Starr";
-name = "Ringo Starrrrrr";    // エラー
-```
-
-[⬆︎目次に戻る](#目次)
+[⬆︎目次へ戻る](#目次)
 
 ## 条件分岐
 
-- if文が使えます。
+**if**
 
 ```c
-if (age == 20) {
-    printf("ギリ買える");
-} else if (age > 20) {
-    printf("買える");
+if (score == 0) {
+    printf("A");
+} else if (score == 1) {
+    printf("B");
 } else {
-    printf("買えない");
+    printf("C");
 }
 ```
 
-- switch文も使えます。
+**switch**
 
 ```c
-int gender = 2;
-switch (gender) {
+switch (score) {
 case 0:
-    printf("男");
+    printf("A");
     break;
 case 1:
-    printf("女");
+    printf("B");
     break;
 default:
-    printf("...");
+    printf("C");
     break;
 }
 ```
 
-[⬆︎目次に戻る](#目次)
+[⬆︎目次へ戻る](#目次)
 
 ## ループ
 
-- forループが使えます。
+**for**
 
 ```c
 for (int i=0; i<3; i++) {
@@ -176,101 +217,159 @@ for (int i=0; i<3; i++) {
 }
 ```
 
-- whileループも使えます。
+**while**
 
 ```c
 int i = 0;
 while (i < 3) {
-    i++;
-    printf("%d\n", i);
+    printf("%d\n", i++);
 }
 ```
 
-- do-whileループも使えます。
+**do-while**
 
 ```c
 int i = 0;
 do {
-    i++;
-    printf("%d\n", i);
+    printf("%d\n", i++);
 } while (i < 3);
 ```
 
-[⬆︎目次に戻る](#目次)
+[⬆︎目次へ戻る](#目次)
 
 ## 配列
 
-- 1つの変数名で複数の値を保持できます。
+**初期化・アクセス**
 
 ```c
-int score[3];
-score[0] = 100;
-score[1] = 80;
-score[2] = 95;
+// 基本
+int arr[3];
+arr[0] = 'A';
+arr[1] = 'B';
+arr[2] = 'C';
+
+// 簡略化
+int nums[3] = {10, 20, 30};
+
+// アクセス
+printf("%d\n", nums[2]);
+
+// 要素数
+int n = sizeof(nums) / sizeof(nums[0]);
 ```
 
-- 宣言は簡略化できます。
+**多次元配列**
 
 ```c
-int score[3] = {100, 80, 95};
-```
-
-- 下記コードで要素数を取得できます。
-
-```c
-int n = sizeof(score) / sizeof(score[0]);
-```
-
-[⬆︎目次に戻る](#目次)
-
-## 多次元配列
-
-- 配列の多次元版です。
-
-```c
-int results[2][5] = {
-    {90, 97, 86, 95, 99},
-    {58, 60, 66, 87, 62}
+// 基本
+int nums[2][4] = {
+    {10, 20, 30, 40},
+    {50, 60, 70, 80},
 };
-```
 
-- 行数の指定は不要です。
-
-```c
-int results[][5] = {
-    {90, 97, 86, 95, 99},
-    {58, 60, 66, 87, 62},
-    {0, 21, 30, 84, 30}
+// 行数は指定不要
+int nums2[][4] = {
+    {10, 20, 30, 40},
+    {50, 60, 70, 80},
+    {90},
 };
+
+// 行数
+int rows = sizeof(nums) / sizeof(nums[0]);
+
+// 列数
+int cols = sizeof(nums[0]) / sizeof(nums[0][0]);
+
+// 要素数
+int elms = sizeof(nums) / sizeof(nums[0][0]);
 ```
 
-- 下記コードで行数や列数を取得できます。
+[⬆︎目次へ戻る](#目次)
+
+## 列挙型
+
+**enum**
 
 ```c
-int rows = sizeof(results) / sizeof(results[0]);
-int cols = sizeof(results[0]) / sizeof(results[0][0]);
+enum Direction {
+    TOP,    // 0
+    BOTTOM, // 1
+    LEFT,   // 2
+    RIGHT,  // 3
+};
+
+int main() {
+    enum Direction dir = BOTTOM;
+    printf("%d", dir);
+}
 ```
 
-[⬆︎目次に戻る](#目次)
+[⬆︎目次へ戻る](#目次)
 
-## 静的
+## 関数
 
-- 静的変数は、ファイルのどこからでもアクセスできます。
+**定義・使用**
 
 ```c
-int plus() {
-    static int count = 0;
-    count++;
-    return count;
+int sum(int a, int b) {
+    return a + b;
 }
 
 int main() {
-    printf("%d\n", plus()); // 1
-    printf("%d\n", plus()); // 2
+    printf("%d\n", sum(10, 20));
 }
 ```
 
-- 静的関数も使えます。
+**ファイルの先頭で実装** - 呼び出す前に実装されていない場合エラーになる
+
+```c
+int sum(int a, int b);
+
+int main() {
+    printf("%d\n", sum(10, 20));
+}
+
+int sum(int a, int b) {
+    return a + b;
+}
+```
+
+**ポインタの値渡し** - ポインタを使用して参照渡しにする
+
+```c
+void increment(int *x) {
+    (*x)++;
+}
+
+int main() {
+    int number = 10;
+    printf("%d\n", number); // 10
+    increment(&number);
+    printf("%d\n", number); // 11
+}
+```
+
+**構造体へのポインタ**
+
+```c
+struct Point {
+    int x, y;
+};
+
+void move(struct Point *p) {
+    p->x++;
+    p->y++;
+};
+
+int main() {
+    struct Point point;
+    point.x = 10;
+    point.y = 5;
+    move(&point);
+}
+```
+
+**static**
 
 ```c
 static int get_one() {
@@ -278,115 +377,44 @@ static int get_one() {
 }
 ```
 
-[⬆︎目次に戻る](#目次)
+[⬆︎目次へ戻る](#目次)
 
 ## 構造体
 
-- クラスとオブジェクトの基盤となる複合データ型です。
+**定義**
 
 ```c
 struct Person {
     char *name;
-    int age;
 };
-
-int main() {
-    struct Person p;
-    p.name = "John";
-    p.age = 20;
-}
 ```
 
-- 複数の構造体データも扱うことができます。
+**インスタンス生成**
 
 ```c
-// 上記のstruct Person {...は残したまま
+struct Person person;
+person.name = "John";
+printf("%s\n", person.name);
+```
 
+**複数の構造体データを扱う**
+
+```c
 typedef struct Person person_data;
 
 int main() {
     person_data data[] = {
-        {"John", 20},
-        {"Paul", 19},
+        {"John"},
+        {"Paul"},
     };
 }
 ```
 
-[⬆︎目次に戻る](#目次)
-
-## 関数
-
-- 関数が使用できます。
-
-```c
-int sum(int a, int b) {
-    return a + b;
-}
-
-int main() {
-    int x = sum(5, 2);
-}
-```
-
-- ファイルの先頭やヘッダファイルでの実装も可能です。（呼び出す前に関数が定義されていない場合エラーになります。）
-
-```c
-int sum(int a, int b);
-
-int main() {
-    int x = sum(5, 2);
-    printf("%d\n", x);
-}
-
-int sum(int a, int b) {
-    return a + b;
-}
-```
-
-[⬆︎目次に戻る](#目次)
-
-## 関数の引数の参照渡し
-
-- 関数の引数は「値渡し」で、関数間で値をコピーして渡します。
-- ポインタを使用して、「参照渡し」することも可能です。
-
-```c
-void plus_one(int *num) {
-    (*num)++;
-}
-
-int main() {
-    int number = 10;    // number: 10
-    plus_one(&number);  // number: 11
-}
-```
-
-- 構造体へのポインタも可能です。この場合は簡略化できます。
-
-```c
-struct Point {
-    int x;
-    int y;
-};
-
-void move(struct Point *p) {
-    p->x++;
-    p->y++;
-}
-
-int main() {
-    struct Point p;
-    p.x = 10;
-    p.y = 5;
-    move(&p);       // x:11, y:6
-}
-```
-
-[⬆︎目次に戻る](#目次)
+[⬆︎目次へ戻る](#目次)
 
 ## ポインタ
 
-- 値そのものではなく、値を指すメモリアドレスを保持する整数の変数です。
+**ポインタ** - 値そのものではなく、値を指すメモリアドレスを保持する変数
 
 ```c
 int age = 20;
@@ -394,7 +422,7 @@ int *p_age = &age;
 printf("%d\n", *p_age);
 ```
 
-- 下記コードはポインタに対する操作の例です。
+**操作**
 
 ```c
 age++;          // 21
@@ -403,11 +431,7 @@ age += 1;       // 22
 (*p_age) += 1;  // 24
 ```
 
-[⬆︎目次に戻る](#目次)
-
-## 動的割り当て
-
-- リンクリストの複雑なデータ構築等、プログラム作成時にデータサイズを把握する必要がなくなります。
+**動的割り当て** - データサイズを把握する必要がなくなる
 
 ```c
 #include <stdio.h>
@@ -419,174 +443,209 @@ typedef struct {
 } Person;
 
 int main() {
-    Person *person = (Person *) malloc(sizeof(Person));
+    Person *person = malloc(sizeof(Person));
     person->name = "John";
     person->age = 22;
 }
 ```
 
-- `free` でメモリの解放を忘れずに。
+**メモリ解放**
 
 ```c
-free(person);
+int main() {
+    Person *person = malloc(sizeof(Person));
+
+    // 処理
+
+    free(person);
+}
 ```
 
-[⬆︎目次に戻る](#目次)
-
-## 配列とポインタ
-
-- 配列にもポインタが使用できます。
+**配列とポインタ**
 
 ```c
-int n = 4;
-char *alphabets = (char*) malloc(n * sizeof(char));
+#include <stdio.h>
+#include <stdlib.h>
 
-alphabets[0] = 'a';
-alphabets[1] = 'b';
-*(alphabets + 2) = 'c';
-alphabets[3] = 'd';
+int main() {
+    int n = 4;
+    char* *names = (char* *) malloc(n * sizeof(*names));
+    names[0] = "John";
+    names[1] = "Paul";
+    *(names + 2) = "George";
+    names[3] = "Ringo";
 
-free(alphabets);
+    for (int i=0; i<n; i++) {
+        printf("%s\n", names[i]);
+    }
+
+    free(names);
+}
 ```
 
-[⬆︎目次に戻る](#目次)
+**NULL**
 
-## stdio.h (入出力)
+```c
+// NULL
+int *p = NULL;
 
-- printf - 文字列を出力する
-- [fopen](/stdio/fopen.c) - ファイルを作成
-- fclose - ファイルを閉じる（[fopen.c](/stdio/fopen.c)参照）
-- [fgetc](/stdio/fgetc.c) - ファイルから文字を読み取る
-- [fgets](/stdio/fgets.c) - ファイルから1行を読み取る
-- [fprintf](/stdio/fprintf.c) - ファイルに書き込む
-- [fputc](/stdio/fputc.c) - ファイルに文字を書き込む
-- [fputs](/stdio/fputs.c) - ファイルに文字列を書き込む
-- [fread](/stdio/fread.c) - ファイルからデータを読み取る
-- [fscanf](/stdio/fscanf.c) - ファイルから文字列を読み取る
-- [fseek](/stdio/fseek.c) - ファイルから特定の位置の文字を読み取る
-- [ftell](/stdio/ftell.c) - ファイルの現在の位置を返す
-- [fwrite](/stdio/fwrite.c) - ファイルにコンテンツを書き込む
-- [rename](/stdio/rename.c) - ファイル名を変更する
-- [remove](/stdio/remove.c) - ファイルを削除する
-- [rewind](/stdio/rewind.c) - 位置インジケータをファイルの先頭に移動する
-- getc - [fgetc](/stdio/fgetc.c) と同じ
-- [getchar](/stdio.getchar.c) - ユーザー入力の文字を読み取る
-- putc - [fputc](/stdio/fputc.c) と同じ
-- [putchar](/stdio/putchar.c) - コンソールに文字を書き込む
-- [puts](/stdio/puts.c) - コンソールに文字列を書き込む
-- [scanf](/stdio/scanf.c) - ユーザー入力の文字を読み取る
-- [sscanf](/stdio/sscanf.c) - 文字列から数値を抽出する
-- [sprintf](/stdio/sprintf.c) - フォーマットされた文字列をchar配列に書き込む
-- [snprintf](/stdio/snprintf.c) - フォーマットされた文字列をchar配列に書き込む
+// NULLチェック
+if (p != NULL) {
+    printf("...");
+}
+```
 
-[⬆︎目次に戻る](#目次)
+[⬆︎目次へ戻る](#目次)
 
-## ctype.h (文字操作)
+## 標準関数
 
-以下は全て文字(char)に対する関数です。
+**stdio.h** - 入出力
 
-- [isalnum](/ctype/isalnum.c) - 英数字か確認する
-- isalpha - 文字か確認する
-- isblank - スペースまたはタブか確認する
-- iscntrl - 制御文字（`\n`, `\t`, `\b`等）か確認する
-- isdigit - 数字か確認する
-- isgraph - グラフィカルな表現（`!`, `"`, `#`, `$`, `%`, `&`, `'`, `(`, `)`, `*`等）か確認する
-- islower - 小文字か確認する
-- isprint - 印刷可能か確認する
-- ispunct - 区切り文字か確認する（ロケールにより判定は変化）
-- isspace - 空白（スペース、タブ、改行等）か確認する
-- isupper - 大文字か確認する
-- isxdigit - 16進数か確認する
-- tolower - 小文字に変換する
-- toupper - 大文字に変換する
+- [空ファイル作成](/src/stdio/make_empty_file.c)
+- [ファイル追記](/src/stdio/file_appending.c)
+- [ファイル書き込み](/src/stdio/file_write.c)
+- [ファイル読み込み](/src/stdio/file_read.c)
+- [ファイルポインタ](/src/stdio/file_pointer.c)
+- [ユーザー入力を読み込む](/src/stdio/user_input.c)
+- [フォーマット文字列を文字列に書き込む](/src/stdio/sprintf.c)
+- [文字列から数値を抽出する](/src/stdio/sscanf.c)
 
-[⬆︎目次に戻る](#目次)
+```c
+// 出力
+printf("Hello, World!\n");
+// ファイル名[0]を[1]に変更
+rename("output.txt", "output2.txt");
+// ファイル[0]を削除
+remove("output2.txt");
+// コンソールに文字列を書き込む
+puts("Yeah");
+// コンソールに文字を書き込む
+putchar('A');
+```
 
-## math.h (数学)
+**math.h** - 数学
 
-- [ceil](/math/ceil.c) - 最も近い整数への切り上げ
-- [fabs](/math/fabs.c) - 絶対値を返す
-- [floor](/math/floor.c) - 最も近い整数への切り捨て
-- [fmax](/math/fmax.c) - 最大値を返す
-- fmin - 最小値を返す（[fmax.c](/math/fmax.c)参照）
-- [fmod](/math/fmod.c) - 余りを返す
-- [hypot](/math/hypot.c) - 原点(0, 0)からの2dポイント(x, y)の距離を返す
-- [pow](/math/pow.c) - べき乗を返す
-- [remainder](/math/remainder.c) - 剰余を返す
-- [round](/math/round.c) - 最も近い整数へ丸める
-- [trunc](/math/trunc.c) - 整数部分を返す
+```c
+printf("%f\n", fabs(-2.5));             // 絶対値
+printf("%f\n", ceil(1.1));              // 切り上げ
+printf("%f\n", floor(1.9));             // 切り捨て
+printf("%f\n", round(4.5));             // 浮動小数展を丸める
+printf("%f\n", trunc(4.9));             // 整数部分を返す
+printf("%f\n", fmin(3.1, 3.2));         // 最小値
+printf("%f\n", fmax(3.1, 3.2));         // 最大値
+printf("%f\n", fmod(15.0, 2.0));        // 余り
+printf("%f\n", remainder(15.0, 2.0));   // 剰余
+printf("%f\n", pow(3.0, 4.0));          // べき乗
+printf("%f\n", hypot(1.0, 1.0));        // 原点からの距離
+```
 
-[⬆︎目次に戻る](#目次)
+**stdlib.h** - ユーティリティ
 
-## stdlib.h (ユーティリティ)
+- [calloc](/src/stdlib/calloc.c) - メモリを割り当てて値を書き込む (0埋め)
+- [malloc](/src/stdlib/malloc.c) - メモリを割り当てる
+- [realloc](/src/stdlib/realloc.c) - 新しくメモリを割り当てる
+- [qsort](/src/stdlib/qsort.c) - 配列の要素を小さい順に並べる
+- [乱数を使う](/src/stdlib/rand.c)
 
-- 計算
-    - [abs](/stdlib/abs.c) - 絶対値を返す
-    - [div](/stdlib/div.c) - 除算した結果の商と余りを返す
-- メモリ
-    - free - メモリを解放する（[calloc](/stdlib/calloc.c), [malloc](/stdlib/malloc.c), [realloc](/stdlib/realloc.c)参照）
-    - [calloc](/stdlib/calloc.c) - メモリを割り当てて値を書き込む (0埋め)
-    - [malloc](/stdlib/malloc.c) - メモリを割り当てる
-    - [realloc](/stdlib/realloc.c) - 新しくメモリを割り当てる
-- 乱数
-    - [rand](/stdlib/rand.c) - 乱数を返す
-    - srand - rand()のシードを設定する（[rand.c](/stdlib/rand.c)参照）
-- その他
-    - [qsort](/stdlib/qsort.c) - 配列の要素を最小〜最大の順に並べる
+```c
+// abs - 絶対値
+int n = abs(-5);
+printf("%d\n", n);
 
-[⬆︎目次に戻る](#目次)
+// div - 商と余り
+div_t result = div(13, 5);
+printf("%d %d\n", result.quot, result.rem);
+```
 
-## string.h (文字列操作)
+**string.h** - 文字列
 
-- メモリ関連
-    - [memchr](/string/memchr.c) - 指定された値を含むメモリブロックの最初のバイトへのポインタを返す
-    - [memcmp](/string/memcmp.c) - ２つのメモリブロックを比較し、大きい方を示す整数を返す
-    - [memcpy](/string/memcpy.c) - メモリブロックを別のメモリブロックにコピーする（不安定）
-    - [memmove](/string/memmove.c) - メモリブロックを別のメモリブロックにコピーする（メモリブロック重複考慮）
-    - [memset](/string/memset.c) - メモリブロック内の全てのバイトに同じ値を設定する
-- 文字列コピー
-    - [strcpy](/string/strcpy.c) - 文字列のデータを別の文字列のメモリにコピーする
-    - [strncpy](/string/strncpy.c) - 文字列の最初のn文字を別の文字列のメモリにコピーする
-- 文字列連結
-    - [strcat](/string/strcat.c) - 文字列のコピーを別の文字列の末尾に追加する
-    - [strncat](/string/strncat.c) - 文字列の一部を別の文字列の末尾に追加する
-- 文字列検索
-    - [strchr](/string/strchr.c) - 文字列内で文字が最初に出現する位置へのポインタを返す
-    - [strpbrk](/string/strpbrk.c) - 文字列内のいずれかの文字が最初に出現する位置を検索し、その位置へのポインタを返す
-    - [strrchr](/string/strrchr.c) - 文字列内で文字が最後に出現する位置へのポインタを返す
-    - [strspn](/string/strspn.c) - 文字列内のいずれかの文字が一致しない最初の文字を検索し、その位置までの長さを返す
-    - [strcspn](/string/strcspn.c) - 文字列内のいずれかの文字が最初に出現する位置を検索し、その位置までの長さを返す
-    - [strstr](/string/strstr.c) - 別の文字列内で文字列が最初に出現する位置へのポインタを返す
-- 文字列比較
-    - [strcmp](/string/strcmp.c) - ２つの文字列を比較し、大きい方を示す整数を返す
-    - [strncmp](/string/strncmp.c) - ２つの文字列の最初のn文字を比較し、大きい方を示す整数を返す
-- その他
-    - [strerror](/string/strerror.c) - エラーメッセージを出力する
-    - [strlen](/string/strlen.c) - 文字列の長さ（終端文字までの文字数）を返す
-    - [strtok](/string/strtok.c) - 区切り文字を使用して文字列を複数のトークンに分割する
+- [strcpy](/src/string/strcpy.c) - 文字列[1]を文字列[0]のメモリにコピー
+- [strncpy](/src/string/strncpy.c) - 文字列[1]の最初の[2]文字を文字列[0]のメモリにコピー
+- [strcat](/src/string/strcat.c) - 文字列[0]の末尾に文字列[1]を連結
+- [strncat](/src/string/strncat.c) - 文字列[0]の末尾に文字列[1]の最初の[2]文字を連結
+- [strchr](/src/string/strchr.c) - 文字列[0]で文字[1]が最初に出現する位置へのポインタ
+- [strrchr](/src/string/strrchr.c) - 文字列[0]で文字[1]が最後に出現する位置へのポインタ
+- [strpbrk](/src/string/strpbrk.c) - 文字列[0]で、文字列[1]のいずれかの文字が最初に出現する位置へのポインタ
+- [strstr](/src/string/strstr.c) - 文字列[0]で、文字列[1]が最初に出現する位置へのポインタ
+- [strspn](/src/string/strspn.c) - 文字列[0]で、文字列[1]のいずれかの文字が一致しない最初の文字までの長さ
+- [strcspn](/src/string/strcspn.c) - 文字列[0]で、文字列[1]のいずれかの文字が最初に出現する位置までの長さ
+- [strcmp](/src/string/strcmp.c) - 文字列[0], [1]を比較し、大きい方を示す整数を返す
+- [strncmp](/src/string/strncmp.c) - 文字列[0], [1]の最初の[2]文字を比較し、大きい方を示す整数を返す
+- [strerror](/src/string/strerror.c) - エラーメッセージを出力する
+- [strlen](/src/string/strlen.c) - 文字列[0]の終端文字までの文字数
+- [strtok](/src/string/strtok.c) - 文字列[0]を区切り文字[1]で複数のトークンに分割する
+- [memchr](/src/string/memchr.c) - 文字列[0]から文字[1]を含むメモリブロックの最初のバイトへのポインタ
+- [memcmp](/src/string/memcmp.c) - 文字列[0], [1]の最初の[2]文字を比較し、大きい方を示す整数を返す
+- [memcpy](/src/string/memcpy.c) - メモリブロックを別のメモリブロックにコピーする (不安定)
+- [memmove](/src/string/memmove.c) - メモリブロックを別のメモリブロックにコピーする (メモリブロック重複考慮)
+- [memset](/src/string/memset.c) - メモリブロック内の全てのバイトに同じ値を設定
 
-[⬆︎目次に戻る](#目次)
+**ctype.h** - 文字
 
-## time.h (時間)
+```c
+char c = 'Z';
+int x = -1;
 
-- `time_t`型 - UNIX時間を扱う型
-- `struct tm`型 - 「年・月・日・時・分・秒」に分離した形式で時刻を扱う型
+x = isalpha(c);     // 文字か？
+x = isblank(c);     // スペースか？
+x = iscntrl(c);     // 制御文字 (\n, \t, \bなど)か？
+x = isdigit(c);     // 数字か？
+x = isgraph(c);     // グラフィカル表現 (!, ", #, $, %, &, ', *)か？
+x = islower(c);     // 小文字か？
+x = isupper(c);     // 大文字か？
+x = isprint(c);     // 印刷可能な文字か？
+x = ispunct(c);     // 区切り文字か？ (ロケールにより判定変化)
+x = isspace(c);     // 空白 (スペース, タブ, 改行)か？
+x = isxdigit(c);    // 16進数か？
+c = tolower(c);     // 小文字化
+c = toupper(c);     // 大文字化
+```
 
-- [time](/time/time.c) - UNIX時間を返す
-- [gmtime](/time/gmtime.c) - time_t型のデータをstruct tm型に変換する
-- localtime - time_t型のデータをstruct tm型に変換する（現地時間への変換）
-- [ctime](/time/ctime.c) - time_t型のデータを文字列に変換する
-- [asctime](/time/asctime.c) - struct tm型のデータを文字列に変換する
-- [strftime](/time/strftime.c) - 日付の文字列をフォーマットに変換する
-- [difftime](/time/difftime.c) - ２つのtime_t値の差を計算する
-- mktime - struct tm型をtime_t型に変換する
-- clock - プログラムが使用したプロセッサクロックティック数を返す
+**time.h** - 時間
 
-[⬆︎目次に戻る](#目次)
+- `time_t型` - UNIX時間を扱う型
+- `struct tm型` - [年月日時分秒]に分離した形式で時刻を扱う型
+- [time](/src/time/time.c) - UNIX時間
+- [gmtime](/src/time/gmtime.c) - time_t型をstruct tm型に変換
+- [ctime](/src/time/ctime.c) - time_t型を文字列に変換
+- localtime - time_t型をstruct tm型に変換 (現地時間)
+- [asctime](/src/time/asctime.c) - struct tm型を文字列に変換
+- [strftime](/src/time/strftime.c) - 日付の文字列をフォーマットに変換
+- [difftime](/src/time/difftime.c) - 2つのtime_tの差を計算
+- mktime - struct tm型をtime_t型に変換
+- clock - プログラムが使用したプロセッサ・クロックティック数を返す
+
+[⬆︎目次へ戻る](#目次)
+
+## キャスト
+
+**キャスト演算子**
+
+```c
+double avg = (double) 17 / 5;
+printf("%f", avg);
+```
+
+**型変換**
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    float pi = atof("3.14");
+    int age = atoi("20");
+    long hp = atol("9999");
+    long long t = atoll("123456");
+    printf("%f %i %li %lli\n", pi, age, hp, t);
+}
+```
+
+[⬆︎目次へ戻る](#目次)
 
 ## コマンドライン引数
 
-- `argc`および`argv`を使用して、コマンドライン引数を使用できます。
+**コード**
 
 ```c
 #include <stdio.h>
@@ -602,26 +661,28 @@ int main(int argc, char *argv[]) {
 }
 ```
 
-- 上記コードを引数なしで実行した場合
+**引数なしで実行**
 
 ```sh
-PROGRAM NAME: ./sample
+$ ./src/sample
+PROGRAM NAME: ./src/sample
 ```
 
-- 引数に`1 2 3`を指定して実行した場合
+**引数ありで実行**
 
 ```sh
-PROGRAM NAME: ./sample
-1
-2
-3
+$ ./src/sample 10 20 30
+PROGRAM NAME: ./src/sample
+10
+20
+30
 ```
 
-[⬆︎目次に戻る](#目次)
+[⬆︎目次へ戻る](#目次)
 
 ## 可変長引数
 
-- `stdarg.h`を使用して可変長引数が実現できます。
+`stdarg.h` を使用することで実現可能
 
 ```c
 #include <stdio.h>
@@ -631,7 +692,7 @@ void output(int num, ...) {
     va_list valist;
     va_start(valist, num);
     for (int i=0; i<num; i++) {
-        printf("%s\n", va_arg(valist, char*));
+        printf("%s\n", va_arg(valist, char *));
     }
 }
 
@@ -640,25 +701,11 @@ int main() {
 }
 ```
 
-```sh
-John
-Paul
-George
-```
+[⬆︎目次へ戻る](#目次)
 
-[⬆︎目次に戻る](#目次)
+## ヘッダファイル
 
-## キャスト
+- [sub.h](/src/sub.h)
+- [sub.c](/src/sub.c)
 
-- 型のキャストが可能です。
-
-```c
-#include <stdio.h>
-
-int main() {
-    double avg = (double) 17 / 5;
-    printf("%f\n", avg);            // 3.40000
-}
-```
-
-[⬆︎目次に戻る](#目次)
+[⬆︎目次へ戻る](#目次)
